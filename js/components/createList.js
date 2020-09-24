@@ -9,24 +9,26 @@ export default function createList(listItems) {
     console.log(listItems);
 
     listItems.forEach(function (listItem) {
+
         let checked = "";
 
         if (listItem.complete) {
             checked = "checked";
         }
 
-        listContainer.innerHTML += `<li><span class="${checked}">${listItem.item}</span> <input ${checked} type="checkbox" data-id="${listItem.id}" /></li>`;
+        listContainer.innerHTML += `<li><span class="${checked}">${listItem.item}</span><input ${checked} type="checkbox" data-id="${listItem.id}" value="${listItem.item}" /></li>`
     });
 
     const checkboxes = document.querySelectorAll("li input");
 
     checkboxes.forEach(function (box) {
         box.addEventListener("click", toggleComplete);
-    });
+    })
 
     function toggleComplete() {
         const id = event.target.dataset.id;
         const checked = event.target.checked;
+        console.log(checked);
 
         const updatedList = updateList(listItems, id, checked);
         saveToStorage(listKey, updatedList);
